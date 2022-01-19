@@ -15,18 +15,17 @@ const handleListen = () => console.log('Listening on http://localhost:3000');
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+function onSocketClose(){
+    console.log("Dissconnected from the Browser");
+}
+
 wss.on("connection", (socket) =>{
     console.log("Connected to Browser");
-   
-    socket.on("close", () => {
-        console.log("Dissconnected from the Browser");
+    socket.on("close", onSocketClose);
+    socket.on("message", (message, isBinary) => {
+        const messageString = isBinary ? message : message.toString('utf-8');
+        socket.send(messageString);
     });
-
-    socket.on("message", (message) => {
-        console.log(message.toString('utf-8'));
-    });
-
-    socket.send("Hello");
 });
 
 server.listen(3000, handleListen);
