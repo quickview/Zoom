@@ -19,12 +19,15 @@ function onSocketClose(){
     console.log("Dissconnected from the Browser");
 }
 
+const sockets = [];
+
 wss.on("connection", (socket) =>{
+    sockets.push(socket);
     console.log("Connected to Browser");
     socket.on("close", onSocketClose);
     socket.on("message", (message, isBinary) => {
         const messageString = isBinary ? message : message.toString('utf-8');
-        socket.send(messageString);
+        sockets.forEach(aSocket => socket.send(messageString));
     });
 });
 

@@ -16,7 +16,7 @@ socket.addEventListener("message", async(message) => {
         const messageText = await message.data.text();
         console.log(messageText);
     }
-    console.log("Just gor this: ", message.data, "from the Server");
+    // console.log("Just gor this: ", message.data, "from the Server");
 });
 
 socket.addEventListener("close", () => {
