@@ -22,6 +22,7 @@ function onSocketClose(){
 const sockets = [];
 
 wss.on("connection", (socket) =>{
+    
     sockets.push(socket);
     console.log("Connected to Browser");
     socket.on("close", onSocketClose);
