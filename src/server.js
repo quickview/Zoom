@@ -27,7 +27,7 @@ wss.on("connection", (socket) =>{
     socket.on("close", onSocketClose);
     socket.on("message", (message, isBinary) => {
         const messageString = isBinary ? message : message.toString('utf-8');
-        sockets.forEach(aSocket => socket.send(messageString));
+        sockets.forEach(aSocket => aSocket.send(messageString));
     });
 });
 
